@@ -1,26 +1,28 @@
 [gd_scene format=3 uid="uid://caso526hh1kb4"]
 
-[ext_resource type="Texture2D" uid="uid://dqwtjmpm3ee0d" path="res://Terry.png" id="1_xhfnw"]
-[ext_resource type="Texture2D" uid="uid://lp1vykpit2u6" path="res://dust.png" id="2_kpjcp"]
+[ext_resource type="Texture2D" uid="uid://dqwtjmpm3ee0d" path="res://Sprites/Terry.png" id="1_xhfnw"]
+[ext_resource type="Texture2D" uid="uid://lp1vykpit2u6" path="res://Sprites/dust.png" id="2_kpjcp"]
 
 [sub_resource type="GDScript" id="GDScript_grmq1"]
 script/source = "extends CharacterBody2D
 
 @export var speed = 400
 @onready var animation = $Sprite
+@onready var Hitbox = $Area2D
 
 var walkturn = 0
+
+var Multtimer: int = 60
 
 var Mode = \"Base\"
 
 signal screen_shake
-signal Firedgun
 
 func get_input():
 	var input_direction = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
 	velocity = input_direction * speed
 	
-	if Input.is_action_just_pressed(\"ui_accept\") and Mode != \"jump\":
+	if Input.is_action_just_pressed(\"ui_accept\") and Mode == \"Base\":
 		#print(\"jump\")
 		Mode = \"Jump\"
 		
@@ -33,12 +35,36 @@ func get_input():
 	else:
 		$GPUParticles2D.emitting = false
 		walkturn = 0
-		animation.rotation = 0
+		animation.rotation = lerp_angle(rotation, 0, 0.2)
 		
 func _physics_process(_delta):
+	
+	if Mode == \"Base\":
+		Multtimer -= 1
+		if Multtimer <= 0:
+			Multtimer = 60
+			Values.Mult += 1
+			
+	if Mode == \"Jump\":
+		Multtimer -= 1
+		if Multtimer <= 0:
+			Multtimer = 60
+			Values.Mult -= 1
+	
+	
 	get_input()
 	move_and_slide()
 	animate()
+	if len(Hitbox.get_overlapping_areas()) > 0:
+		for area in Hitbox.get_overlapping_areas():
+			if area.visible: 
+				if Mode == \"Base\":
+					Mode = \"Hurt\"
+					emit_signal(\"HP_Changed\")
+					Values.Score = Values.Score/2
+					Values.Mult = 0
+				if Mode == \"Jump\":
+					Values.Score += 1 * Values.Mult
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed == true:
@@ -46,33 +72,26 @@ func _input(event: InputEvent) -> void:
 
 func animate():
 	if Mode == \"Base\":
-		$Area2D.monitorable = true
-		$Area2D.monitoring = true
 		animation.play(\"Base\")
 		speed = 400
 	elif Mode == \"Jump\":
-		$Area2D.monitorable = false
-		$Area2D.monitoring = false
+		
 		animation.play(\"Jump\")
 		speed = 750
 		await animation.animation_finished
 		Mode = \"Base\"
+	if Mode == \"Hurt\":
+		animation.play(\"Hurt\")
+		speed = 400
+		await animation.animation_finished
+		Mode = \"Base\"
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	Mode = \"Base\"
-	
-	print(\"reset\")
+
 
 signal HP_Changed
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	print(\"h\")
-	emit_signal(\"HP_Changed\")
-
-
-func _on_weapon_gun_shot() -> void:
-	emit_signal(\"screen_shake\")
-	emit_signal(\"Firedgun\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kpjcp"]
@@ -81,35 +100,39 @@ region = Rect2(0, 0, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kne1u"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(96, 0, 96, 512)
+region = Rect2(96, 1024, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e80uo"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(192, 0, 96, 512)
+region = Rect2(96, 0, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxr5p"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(0, 512, 96, 512)
+region = Rect2(192, 0, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tdg3f"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(96, 512, 96, 512)
+region = Rect2(288, 0, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dtqjt"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(192, 512, 96, 512)
+region = Rect2(0, 512, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ncpa"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(0, 1024, 96, 512)
+region = Rect2(96, 512, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wi0c6"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(96, 1024, 96, 512)
+region = Rect2(192, 512, 96, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp6x6"]
 atlas = ExtResource("1_xhfnw")
-region = Rect2(192, 1024, 96, 512)
+region = Rect2(288, 512, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tkgg"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(0, 1024, 96, 512)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_grmq1"]
 animations = [{
@@ -125,6 +148,14 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kne1u")
 }, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kne1u")
+}],
+"loop": 0,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e80uo")
 }, {
@@ -145,11 +176,17 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hp6x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tkgg")
 }],
 "loop": 0,
 "name": &"Jump",
 "speed": 12.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_grmq1"]
+radius = 29.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpjcp"]
 particles_animation = true
@@ -172,10 +209,16 @@ script = SubResource("GDScript_grmq1")
 texture_filter = 1
 position = Vector2(-6, 212)
 sprite_frames = SubResource("SpriteFrames_grmq1")
-animation = &"Base"
+animation = &"Hurt"
 offset = Vector2(6, -212)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=260531875]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=548703994]
+position = Vector2(-5, 193)
+shape = SubResource("CircleShape2D_grmq1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=623020729]
 z_index = -1
@@ -185,3 +228,5 @@ position = Vector2(-9, 212)
 amount = 4
 texture = ExtResource("2_kpjcp")
 process_material = SubResource("ParticleProcessMaterial_xhfnw")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -1,19 +1,48 @@
 [gd_scene format=3 uid="uid://c0dwbmk8xs6tr"]
 
-[ext_resource type="Texture2D" uid="uid://c4aghggmk683e" path="res://Sprite-0005.png" id="1_u52ul"]
+[ext_resource type="Texture2D" uid="uid://c4aghggmk683e" path="res://Sprites/Sprite-0005.png" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://caso526hh1kb4" path="res://Player.tscn" id="2_vonw3"]
-[ext_resource type="Script" uid="uid://t4m53k7dn1r2" path="res://Scripts/Class/Danger.gd" id="3_oi3di"]
+[ext_resource type="PackedScene" uid="uid://calha58w8nefh" path="res://UI.tscn" id="3_oi3di"]
+[ext_resource type="Script" uid="uid://d3ub0u2fr8oe" path="res://Scripts/Cam.gd" id="4_0b4ue"]
+
+[sub_resource type="GDScript" id="GDScript_kfdsr"]
+resource_name = "Level1"
+script/source = "extends Node2D
+
+@onready var Pattern1 = preload(\"res://pattern_1.tscn\")
+var Pattern1Delay: int = 100
+
+func _ready() -> void:
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	var SquarePattern = Pattern1.instantiate()
+	if Pattern1Delay <= 0:
+		Pattern1Delay = 50
+		SquarePattern.position = Vector2(randi_range(13, 1148), randi_range(9, 626))
+		add_child(SquarePattern)
+	Pattern1Delay -= 1
+"
 
 [node name="Level" type="Node2D" unique_id=374076405]
+script = SubResource("GDScript_kfdsr")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1321232466]
 z_index = -10
+texture_filter = 1
 position = Vector2(576, 322)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("1_u52ul")
 
 [node name="CharacterBody2D" parent="." unique_id=1029943372 instance=ExtResource("2_vonw3")]
 position = Vector2(575, 110)
 
-[node name="DangerousObject" type="Node2D" parent="." unique_id=1114850934]
-script = ExtResource("3_oi3di")
-metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+[node name="CanvasLayer" parent="." unique_id=428428846 instance=ExtResource("3_oi3di")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2008483679]
+position = Vector2(575, 322)
+script = ExtResource("4_0b4ue")
+
+[connection signal="HP_Changed" from="CharacterBody2D" to="Camera2D" method="_on_player_hp_changed"]

@@ -12,12 +12,20 @@ config_version=5
 
 config/name="Please Watch Out!"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Sprites/icon.svg"
+
+[autoload]
+
+Values="*uid://br2axrn2d7r5e"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_2="Dangers"
 
 [physics]
 
