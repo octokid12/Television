@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c0dwbmk8xs6tr"]
+
+[ext_resource type="Texture2D" uid="uid://c4aghggmk683e" path="res://Sprite-0005.png" id="1_u52ul"]
+[ext_resource type="PackedScene" uid="uid://caso526hh1kb4" path="res://Player.tscn" id="2_vonw3"]
+[ext_resource type="Script" uid="uid://t4m53k7dn1r2" path="res://Scripts/Class/Danger.gd" id="3_oi3di"]
+
+[node name="Level" type="Node2D" unique_id=374076405]
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1321232466]
+z_index = -10
+position = Vector2(576, 322)
+texture = ExtResource("1_u52ul")
+
+[node name="CharacterBody2D" parent="." unique_id=1029943372 instance=ExtResource("2_vonw3")]
+position = Vector2(575, 110)
+
+[node name="DangerousObject" type="Node2D" parent="." unique_id=1114850934]
+script = ExtResource("3_oi3di")
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"

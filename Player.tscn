@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://caso526hh1kb4"]
+
+[ext_resource type="Texture2D" uid="uid://dqwtjmpm3ee0d" path="res://Terry.png" id="1_xhfnw"]
+[ext_resource type="Texture2D" uid="uid://lp1vykpit2u6" path="res://dust.png" id="2_kpjcp"]
+
+[sub_resource type="GDScript" id="GDScript_grmq1"]
+script/source = "extends CharacterBody2D
+
+@export var speed = 400
+@onready var animation = $Sprite
+
+var walkturn = 0
+
+var Mode = \"Base\"
+
+signal screen_shake
+signal Firedgun
+
+func get_input():
+	var input_direction = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
+	velocity = input_direction * speed
+	
+	if Input.is_action_just_pressed(\"ui_accept\") and Mode != \"jump\":
+		#print(\"jump\")
+		Mode = \"Jump\"
+		
+		
+	if input_direction and Mode == \"Base\":
+		walkturn += 0.05
+		animation.rotation = lerp_angle(rotation, cos(walkturn)/3, 1)
+		#print(\"a\")
+		$GPUParticles2D.emitting = true
+	else:
+		$GPUParticles2D.emitting = false
+		walkturn = 0
+		animation.rotation = 0
+		
+func _physics_process(_delta):
+	get_input()
+	move_and_slide()
+	animate()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed == true:
+		pass
+
+func animate():
+	if Mode == \"Base\":
+		$Area2D.monitorable = true
+		$Area2D.monitoring = true
+		animation.play(\"Base\")
+		speed = 400
+	elif Mode == \"Jump\":
+		$Area2D.monitorable = false
+		$Area2D.monitoring = false
+		animation.play(\"Jump\")
+		speed = 750
+		await animation.animation_finished
+		Mode = \"Base\"
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	Mode = \"Base\"
+	
+	print(\"reset\")
+
+signal HP_Changed
+
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	print(\"h\")
+	emit_signal(\"HP_Changed\")
+
+
+func _on_weapon_gun_shot() -> void:
+	emit_signal(\"screen_shake\")
+	emit_signal(\"Firedgun\")
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpjcp"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(0, 0, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kne1u"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(96, 0, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e80uo"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(192, 0, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxr5p"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(0, 512, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdg3f"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(96, 512, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtqjt"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(192, 512, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ncpa"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(0, 1024, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi0c6"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(96, 1024, 96, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp6x6"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(192, 1024, 96, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grmq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpjcp")
+}],
+"loop": 1,
+"name": &"Base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kne1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e80uo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxr5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdg3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtqjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ncpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi0c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp6x6")
+}],
+"loop": 0,
+"name": &"Jump",
+"speed": 12.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpjcp"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xhfnw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1029943372]
+script = SubResource("GDScript_grmq1")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1521815821]
+texture_filter = 1
+position = Vector2(-6, 212)
+sprite_frames = SubResource("SpriteFrames_grmq1")
+animation = &"Base"
+offset = Vector2(6, -212)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=260531875]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=623020729]
+z_index = -1
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_kpjcp")
+position = Vector2(-9, 212)
+amount = 4
+texture = ExtResource("2_kpjcp")
+process_material = SubResource("ParticleProcessMaterial_xhfnw")
