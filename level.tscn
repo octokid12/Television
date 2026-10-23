@@ -9,21 +9,42 @@
 resource_name = "Level1"
 script/source = "extends Node2D
 
-@onready var Pattern1 = preload(\"res://pattern_1.tscn\")
+@onready var Player = $CharacterBody2D
+
+@onready var Pattern1 = preload(\"res://Scenes/Patterns/pattern_1.tscn\")
+@onready var Pattern2 = preload(\"res://Scenes/Patterns/pattern_2.tscn\")
+@onready var Pattern3 = preload(\"res://Scenes/Patterns/pattern_3hole.tscn\")
 var Pattern1Delay: int = 100
+var Pattern2Delay: int = 200
+var Pattern3Delay:int = 100
 
 func _ready() -> void:
 	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var SquarePattern = Pattern1.instantiate()
+	var unstaggeredSquare = Pattern2.instantiate()
+	var Followhole = Pattern3.instantiate()
 	if Pattern1Delay <= 0:
 		Pattern1Delay = 50
 		SquarePattern.position = Vector2(randi_range(13, 1148), randi_range(9, 626))
 		add_child(SquarePattern)
 	Pattern1Delay -= 1
+	
+	
+	if Pattern2Delay <= 0:
+		Pattern2Delay = 50
+		unstaggeredSquare.position = Vector2(randi_range(13, 1148), randi_range(9, 626))
+		add_child(unstaggeredSquare)
+	Pattern2Delay -= 1
+	
+	if Pattern3Delay <= 0:
+		Pattern3Delay = 75
+		Followhole.position = Vector2(Player.position.x + randi_range(20, -20), Player.position.y + 193)
+		add_child(Followhole)
+	Pattern3Delay -= 1
 "
 
 [node name="Level" type="Node2D" unique_id=374076405]
@@ -37,7 +58,7 @@ scale = Vector2(1.1, 1.1)
 texture = ExtResource("1_u52ul")
 
 [node name="CharacterBody2D" parent="." unique_id=1029943372 instance=ExtResource("2_vonw3")]
-position = Vector2(575, 110)
+position = Vector2(349, 94)
 
 [node name="CanvasLayer" parent="." unique_id=428428846 instance=ExtResource("3_oi3di")]
 

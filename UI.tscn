@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://baoacbqjpp43" path="res://Scripts/ui.gd" id="1_3b2b5"]
 [ext_resource type="Texture2D" uid="uid://hgvtp6nmohjq" path="res://Sprites/ui0007.png" id="1_b3bc3"]
+[ext_resource type="FontFile" uid="uid://dyceni83q8ciy" path="res://Scenes/Patterns/Mystery Font.ttf" id="3_g6l6n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grmq1"]
 atlas = ExtResource("1_b3bc3")
@@ -25,17 +26,21 @@ position = Vector2(1002, 125)
 texture = SubResource("AtlasTexture_b3bc3")
 
 [node name="Score" type="Label" parent="." unique_id=1847280736]
+texture_filter = 1
 offset_left = 22.0
 offset_top = 5.0
 offset_right = 62.0
 offset_bottom = 28.0
-scale = Vector2(4, 4)
+theme_override_fonts/font = ExtResource("3_g6l6n")
+theme_override_font_sizes/font_size = 8
 text = "000"
 
-[node name="Mult" type="Label" parent="." unique_id=90862962]
-offset_left = 884.0
-offset_top = 1.0
-offset_right = 924.0
-offset_bottom = 24.0
-scale = Vector2(4, 4)
+[node name="Mult" type="Label" parent="." unique_id=1610261500]
+texture_filter = 1
+offset_left = 876.0
+offset_top = 5.0
+offset_right = 1119.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("3_g6l6n")
+theme_override_font_sizes/font_size = 8
 text = "000"

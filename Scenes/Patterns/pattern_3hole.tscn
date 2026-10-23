@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://kaowh36ilmdo"]
+
+[ext_resource type="Script" uid="uid://t4m53k7dn1r2" path="res://Scripts/Class/Danger.gd" id="1_s5qlu"]
+[ext_resource type="Texture2D" uid="uid://c872juk6fggva" path="res://Sprites/hole.png" id="2_j2crv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o76q7"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brc5l"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm307"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28o6q"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgd74"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr5m1"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtbo5"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpfgf"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(192, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gggto"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w53jt"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q8mu"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldl42"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(192, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rvuy"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(0, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyb2n"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(96, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0veu"]
+atlas = ExtResource("2_j2crv")
+region = Rect2(192, 192, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6d7a4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o76q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brc5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm307")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28o6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgd74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr5m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtbo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpfgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gggto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w53jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q8mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldl42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rvuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyb2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0veu")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xuplv"]
+radius = 38.013157
+
+[node name="Pattern2" type="Node2D" unique_id=95144478]
+
+[node name="DangerousObject" type="Node2D" parent="." unique_id=195388491 node_paths=PackedStringArray("Sprite", "Hitbox")]
+position = Vector2(2, -10)
+script = ExtResource("1_s5qlu")
+Sprite = NodePath("AnimatedSprite2D")
+SpawnAnimation = "default"
+Die = true
+DeathFrame = 14
+Hitbox = NodePath("Area2D")
+StartingFrame = 5
+EndingFrame = 12
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject" unique_id=393866927]
+texture_filter = 1
+position = Vector2(-1, -10)
+sprite_frames = SubResource("SpriteFrames_6d7a4")
+frame_progress = 0.1514266
+
+[node name="Area2D" type="Area2D" parent="DangerousObject" unique_id=2107921820]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject/Area2D" unique_id=162958167]
+position = Vector2(-2, -3)
+shape = SubResource("CircleShape2D_xuplv")
+debug_color = Color(0, 0, 0, 0.41960785)

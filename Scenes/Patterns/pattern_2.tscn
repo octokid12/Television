@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://cr0aw2mjidoo1"]
+
+[ext_resource type="Script" uid="uid://t4m53k7dn1r2" path="res://Scripts/Class/Danger.gd" id="1_w6fd3"]
+[ext_resource type="Texture2D" uid="uid://ceai8pmb5s645" path="res://Sprites/spike-0006.png" id="2_wlpm1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2txt"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ainy"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6hdu"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km5ld"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2t4f"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cye3"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2orkt"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(192, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aicyk"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(288, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b0r0"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(0, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6smj"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(96, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5j5c"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(192, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pxul"]
+atlas = ExtResource("2_wlpm1")
+region = Rect2(288, 192, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6d7a4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2txt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ainy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6hdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_km5ld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2t4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cye3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2orkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aicyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8b0r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6smj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5j5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pxul")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onpxo"]
+size = Vector2(20, 48)
+
+[node name="Pattern2" type="Node2D" unique_id=95144478]
+
+[node name="DangerousObject" type="Node2D" parent="." unique_id=195388491 node_paths=PackedStringArray("Sprite", "Hitbox")]
+position = Vector2(-45, 46)
+script = ExtResource("1_w6fd3")
+Sprite = NodePath("AnimatedSprite2D")
+SpawnAnimation = "default"
+Die = true
+DeathFrame = 11
+Hitbox = NodePath("Area2D")
+StartingFrame = 5
+EndingFrame = 7
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject" unique_id=393866927]
+texture_filter = 1
+position = Vector2(-1, -10)
+sprite_frames = SubResource("SpriteFrames_6d7a4")
+
+[node name="Area2D" type="Area2D" parent="DangerousObject" unique_id=2107921820]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject/Area2D" unique_id=162958167]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_onpxo")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="DangerousObject2" type="Node2D" parent="." unique_id=835906939 node_paths=PackedStringArray("Sprite", "Hitbox")]
+position = Vector2(58, 46)
+script = ExtResource("1_w6fd3")
+Sprite = NodePath("AnimatedSprite2D")
+SpawnAnimation = "default"
+Die = true
+DeathFrame = 11
+Hitbox = NodePath("Area2D")
+StartingFrame = 5
+EndingFrame = 7
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject2" unique_id=1590163996]
+texture_filter = 1
+position = Vector2(-1, -10)
+sprite_frames = SubResource("SpriteFrames_6d7a4")
+
+[node name="Area2D" type="Area2D" parent="DangerousObject2" unique_id=1733335472]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject2/Area2D" unique_id=2032790214]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_onpxo")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="DangerousObject3" type="Node2D" parent="." unique_id=272144534 node_paths=PackedStringArray("Sprite", "Hitbox")]
+position = Vector2(-45, -49)
+script = ExtResource("1_w6fd3")
+Sprite = NodePath("AnimatedSprite2D")
+SpawnAnimation = "default"
+Die = true
+DeathFrame = 11
+Hitbox = NodePath("Area2D")
+StartingFrame = 5
+EndingFrame = 7
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject3" unique_id=1070851959]
+texture_filter = 1
+position = Vector2(-1, -10)
+sprite_frames = SubResource("SpriteFrames_6d7a4")
+
+[node name="Area2D" type="Area2D" parent="DangerousObject3" unique_id=1622283936]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject3/Area2D" unique_id=69626498]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_onpxo")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="DangerousObject4" type="Node2D" parent="." unique_id=1260989937 node_paths=PackedStringArray("Sprite", "Hitbox")]
+position = Vector2(58, -49)
+script = ExtResource("1_w6fd3")
+Sprite = NodePath("AnimatedSprite2D")
+SpawnAnimation = "default"
+Die = true
+DeathFrame = 11
+Hitbox = NodePath("Area2D")
+StartingFrame = 5
+EndingFrame = 7
+metadata/_custom_type_script = "uid://t4m53k7dn1r2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject4" unique_id=1405654709]
+texture_filter = 1
+position = Vector2(-1, -10)
+sprite_frames = SubResource("SpriteFrames_6d7a4")
+
+[node name="Area2D" type="Area2D" parent="DangerousObject4" unique_id=1340650257]
+visible = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject4/Area2D" unique_id=1173189389]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_onpxo")
+debug_color = Color(0, 0, 0, 0.41960785)
