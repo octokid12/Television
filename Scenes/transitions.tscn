@@ -7,7 +7,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Transitions/Tran:visible")
+tracks/0/path = NodePath("Transitions/CanvasLayer/Tran:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -19,14 +19,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Transitions/Tran:position")
+tracks/1/path = NodePath("Transitions/CanvasLayer/Tran:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1765, 322)]
+"values": [Vector2(2200, 322)]
 }
 
 [sub_resource type="Animation" id="Animation_8qv0v"]
@@ -35,7 +35,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Transitions/Tran:visible")
+tracks/0/path = NodePath("Transitions/CanvasLayer/Tran:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,14 +47,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Transitions/Tran:position")
+tracks/1/path = NodePath("Transitions/CanvasLayer/Tran:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1765, 322), Vector2(428, 322)]
+"values": [Vector2(2500, 322), Vector2(428, 322)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l833j"]
@@ -66,7 +66,12 @@ _data = {
 [node name="Transitions" type="AnimationPlayer" unique_id=1455238034]
 libraries/ = SubResource("AnimationLibrary_l833j")
 
-[node name="Tran" type="Sprite2D" parent="." unique_id=923930610]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1739070420]
+layer = 100
+
+[node name="Tran" type="Sprite2D" parent="CanvasLayer" unique_id=923930610]
+z_index = 200
 texture_filter = 1
-position = Vector2(428, 322)
+position = Vector2(2200, 322)
+scale = Vector2(1.7838541, 1)
 texture = ExtResource("1_q65v4")

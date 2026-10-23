@@ -30,5 +30,24 @@ func Time_Left():
 
 
 func _on_timer_timeout() -> void:
+	$AnimationPlayer.play("End")
 	get_tree().set_pause(true)
+	await get_tree().create_timer(3).timeout
+	if Values.Score < Values.TargetScore:
+		Values.Won = -1
+		Values.LoadableScene = get_tree().current_scene.scene_file_path
+		get_tree().paused = false
+		Transitions.play("Trianglewipe")
+		await Transitions.animation_finished
+		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	else:
+		Values.Won = 1
+		Values.Level += 1
+		Values.LoadableScene = Values.Levels[Values.Level]
+		get_tree().paused = false
+		Transitions.play("Trianglewipe")
+		await Transitions.animation_finished
+		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	Values.Score = 0 
+	Values.Mult = 0
 	print("time's up!")

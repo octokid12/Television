@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 Values="*uid://br2axrn2d7r5e"
+Transitions="*uid://cwruok0u0safl"
 
 [display]
 

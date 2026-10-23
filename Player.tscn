@@ -195,7 +195,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grmq1"]
-radius = 29.0
+radius = 9.219544
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kpjcp"]
 particles_animation = true
@@ -240,6 +240,9 @@ anim_speed_min = 1.0
 anim_speed_max = 2.0
 anim_offset_max = 1.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grmq1"]
+size = Vector2(64, 85)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1029943372]
 script = SubResource("GDScript_grmq1")
 
@@ -248,8 +251,7 @@ z_index = 1
 texture_filter = 1
 position = Vector2(-6, 212)
 sprite_frames = SubResource("SpriteFrames_grmq1")
-animation = &"Jump"
-frame = 2
+animation = &"Base"
 offset = Vector2(6, -212)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=260531875]
@@ -288,6 +290,10 @@ one_shot = true
 explosiveness = 1.0
 randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_grmq1")
+
+[node name="BH" type="CollisionShape2D" parent="." unique_id=469009959]
+position = Vector2(-4, 204.5)
+shape = SubResource("RectangleShape2D_grmq1")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="Firering" to="." method="_on_firering_area_entered"]

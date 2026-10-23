@@ -1,15 +1,21 @@
 [gd_scene format=3 uid="uid://cc0d571ixfdp8"]
 
 [ext_resource type="Script" uid="uid://ckscuwkjsu1q" path="res://Scenes/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://hgup1y0qqtjc" path="res://Sprites/logo.png" id="2_48xlc"]
 
 [node name="Main menu" type="Node2D" unique_id=1892438682]
 script = ExtResource("1_28flt")
 
+[node name="Logo" type="Sprite2D" parent="." unique_id=1389765062]
+texture_filter = 1
+position = Vector2(440, 302)
+texture = ExtResource("2_48xlc")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=433013144]
-offset_left = 458.0
-offset_top = 382.0
-offset_right = 687.0
-offset_bottom = 483.0
+offset_left = 450.0
+offset_top = 484.0
+offset_right = 679.0
+offset_bottom = 585.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=828443360]
 layout_mode = 2

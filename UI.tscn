@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://baoacbqjpp43" path="res://Scripts/ui.gd" id="1_3b2b5"]
 [ext_resource type="Texture2D" uid="uid://hgvtp6nmohjq" path="res://Sprites/ui0007.png" id="1_b3bc3"]
 [ext_resource type="FontFile" uid="uid://dyceni83q8ciy" path="res://Scenes/Patterns/Mystery Font.ttf" id="3_g6l6n"]
+[ext_resource type="Texture2D" uid="uid://cyxyo47srh6yj" path="res://Sprites/times up.png" id="4_qui0h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grmq1"]
 atlas = ExtResource("1_b3bc3")
@@ -20,6 +21,107 @@ region = Rect2(256, 96, 256, 96)
 atlas = ExtResource("1_b3bc3")
 region = Rect2(0, 96, 256, 96)
 
+[sub_resource type="Animation" id="Animation_vrfts"]
+resource_name = "End"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Finish:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Finish:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Finish:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Finish:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_0mc3e"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Finish:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Finish:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Finish:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Finish:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2n5f6"]
+_data = {
+&"End": SubResource("Animation_vrfts"),
+&"RESET": SubResource("Animation_0mc3e")
+}
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=428428846]
 script = ExtResource("1_3b2b5")
 
@@ -27,7 +129,7 @@ script = ExtResource("1_3b2b5")
 offset_left = -57.0
 offset_right = 1205.0
 offset_bottom = 214.0
-color = Color(0.34117648, 0.34117648, 0.34117648, 0.22352941)
+color = Color(0.18039216, 0.18039216, 0.18039216, 0.22352941)
 
 [node name="Score2" type="Sprite2D" parent="." unique_id=681072867]
 texture_filter = 1
@@ -94,7 +196,26 @@ theme_override_font_sizes/font_size = 8
 text = "000"
 
 [node name="Timer" type="Timer" parent="." unique_id=1910731607]
-wait_time = 10.0
+wait_time = 60.0
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1534185289]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_2n5f6")
+
+[node name="Finish" type="ColorRect" parent="." unique_id=1994933091]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+offset_left = -196.0
+offset_top = 226.0
+offset_right = 1349.0
+offset_bottom = 499.0
+color = Color(0.6392157, 0.6392157, 0.6392157, 0.5411765)
+
+[node name="TimesUp" type="Sprite2D" parent="Finish" unique_id=253802534]
+texture_filter = 1
+position = Vector2(766, 130)
+scale = Vector2(2, 2)
+texture = ExtResource("4_qui0h")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
