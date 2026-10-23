@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Please Watch Out!"
+run/main_scene="uid://cc0d571ixfdp8"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -26,6 +27,7 @@ window/stretch/aspect="expand"
 [layer_names]
 
 2d_physics/layer_2="Dangers"
+2d_physics/layer_3="Fire ring"
 
 [physics]
 

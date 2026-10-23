@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://c0dwbmk8xs6tr"]
+
+[ext_resource type="Texture2D" uid="uid://c4aghggmk683e" path="res://Sprites/Sprite-0005.png" id="1_tq1so"]
+[ext_resource type="PackedScene" uid="uid://caso526hh1kb4" path="res://Player.tscn" id="2_rv5g2"]
+[ext_resource type="PackedScene" uid="uid://calha58w8nefh" path="res://UI.tscn" id="3_lhx7y"]
+[ext_resource type="Script" uid="uid://d3ub0u2fr8oe" path="res://Scripts/Cam.gd" id="4_i5435"]
+
+[sub_resource type="GDScript" id="GDScript_kfdsr"]
+resource_name = "Level1"
+script/source = "extends Node2D
+
+@onready var Player = $CharacterBody2D
+
+@onready var Pattern1 = preload(\"res://Scenes/Patterns/pattern_1.tscn\")
+@onready var Pattern2 = preload(\"res://Scenes/Patterns/pattern_2.tscn\")
+@onready var Pattern3 = preload(\"res://Scenes/Patterns/pattern_3hole.tscn\")
+@onready var Fring = preload(\"res://fring.tscn\")
+var Pattern1Delay: int = 100
+var Pattern2Delay: int = 200
+var Pattern3Delay:int = 100
+var Fringdealy: int = 300
+
+func _ready() -> void:
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(_delta: float) -> void:
+	var SquarePattern = Pattern1.instantiate()
+	var unstaggeredSquare = Pattern2.instantiate()
+	var Followhole = Pattern3.instantiate()
+	var Hoop = Fring.instantiate()
+	if Pattern1Delay <= 0:
+		Pattern1Delay = 50
+		SquarePattern.position = Vector2(randi_range(13, 1148), randi_range(9, 626))
+		add_child(SquarePattern)
+	Pattern1Delay -= 1
+	
+	
+	if Pattern2Delay <= 0:
+		Pattern2Delay = 50
+		unstaggeredSquare.position = Vector2(randi_range(13, 1148), randi_range(9, 626))
+		add_child(unstaggeredSquare)
+	Pattern2Delay -= 1
+	
+	if Pattern3Delay <= 0:
+		Pattern3Delay = 75
+		Followhole.position = Vector2(Player.position.x + randi_range(20, -20), Player.position.y + 193)
+		add_child(Followhole)
+	Pattern3Delay -= 1
+	
+	if Fringdealy <= 0:
+		Fringdealy = 200
+		Hoop.position = Vector2(randi_range(43, 1079), randi_range(100, 356))
+		add_child(Hoop)
+	Fringdealy -= 1
+"
+
+[node name="Level" type="Node2D" unique_id=374076405]
+process_mode = 1
+script = SubResource("GDScript_kfdsr")
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1321232466]
+z_index = -10
+texture_filter = 1
+position = Vector2(576, 322)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("1_tq1so")
+
+[node name="CharacterBody2D" parent="." unique_id=1029943372 instance=ExtResource("2_rv5g2")]
+position = Vector2(396, 188)
+
+[node name="CanvasLayer" parent="." unique_id=428428846 instance=ExtResource("3_lhx7y")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2008483679]
+position = Vector2(575, 322)
+script = ExtResource("4_i5435")
+
+[node name="Time" type="Timer" parent="." unique_id=650921728]
+process_mode = 1
+wait_time = 60.0
+autostart = true
+
+[connection signal="HP_Changed" from="CharacterBody2D" to="Camera2D" method="_on_player_hp_changed"]

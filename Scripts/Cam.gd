@@ -11,8 +11,6 @@ func _process(delta):
 		shake_strength = lerp(shake_strength, 0.0, shake_fade * delta)
 		offset = Vector2(randf_range(-shake_strength, shake_strength), 
 						 randf_range(-shake_strength, shake_strength))
-	walkturn += 0.05
-	self.rotation = cos(walkturn)/500
 
 
 func _on_player_hp_changed() -> void:

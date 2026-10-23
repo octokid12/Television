@@ -6,30 +6,78 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grmq1"]
 atlas = ExtResource("1_b3bc3")
-region = Rect2(0, 0, 256, 0)
+region = Rect2(0, 0, 256, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b3bc3"]
 atlas = ExtResource("1_b3bc3")
-region = Rect2(256, 0, 256, 0)
+region = Rect2(256, 0, 256, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6l6n"]
+atlas = ExtResource("1_b3bc3")
+region = Rect2(256, 96, 256, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qui0h"]
+atlas = ExtResource("1_b3bc3")
+region = Rect2(0, 96, 256, 96)
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=428428846]
 script = ExtResource("1_3b2b5")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=681072867]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1807284106]
+offset_left = -57.0
+offset_right = 1205.0
+offset_bottom = 214.0
+color = Color(0.34117648, 0.34117648, 0.34117648, 0.22352941)
+
+[node name="Score2" type="Sprite2D" parent="." unique_id=681072867]
 texture_filter = 1
 position = Vector2(113, 109)
 texture = SubResource("AtlasTexture_grmq1")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=900211967]
+[node name="Mult2" type="Sprite2D" parent="." unique_id=900211967]
 texture_filter = 1
 position = Vector2(1002, 125)
 texture = SubResource("AtlasTexture_b3bc3")
+
+[node name="Target" type="Sprite2D" parent="." unique_id=743048419]
+texture_filter = 1
+position = Vector2(412, 64)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_g6l6n")
+
+[node name="TargetScore" type="Label" parent="Target" unique_id=1924318352]
+texture_filter = 1
+offset_left = -98.57147
+offset_top = 55.714294
+offset_right = 144.42853
+offset_bottom = 78.714294
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("3_g6l6n")
+theme_override_font_sizes/font_size = 8
+text = "300"
+
+[node name="Time" type="Sprite2D" parent="." unique_id=1500644528]
+texture_filter = 1
+position = Vector2(713, 61.000015)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_qui0h")
+
+[node name="Time2" type="Label" parent="Time" unique_id=1934486787]
+texture_filter = 1
+offset_left = -117.14281
+offset_top = 55.71427
+offset_right = 125.85719
+offset_bottom = 78.71427
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("3_g6l6n")
+theme_override_font_sizes/font_size = 8
+text = "000"
 
 [node name="Score" type="Label" parent="." unique_id=1847280736]
 texture_filter = 1
 offset_left = 22.0
 offset_top = 5.0
-offset_right = 62.0
+offset_right = 265.0
 offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("3_g6l6n")
 theme_override_font_sizes/font_size = 8
@@ -44,3 +92,9 @@ offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("3_g6l6n")
 theme_override_font_sizes/font_size = 8
 text = "000"
+
+[node name="Timer" type="Timer" parent="." unique_id=1910731607]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d0qcotghs0iw4"]
+
+[ext_resource type="Script" uid="uid://c4rd7qpu1axk3" path="res://loading.gd" id="1_fim2r"]
+[ext_resource type="Texture2D" uid="uid://cdditi8nipe76" path="res://Sprites/StagePortraits/stage1.png" id="2_k66n3"]
+
+[node name="Loading" type="Node2D" unique_id=568957543]
+script = ExtResource("1_fim2r")
+
+[node name="Stage1" type="Sprite2D" parent="." unique_id=1169353500]
+z_index = 1
+position = Vector2(722, 283)
+texture = ExtResource("2_k66n3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1508452309]
+offset_left = -34.0
+offset_top = -9.0
+offset_right = 1209.0
+offset_bottom = 673.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=924927915]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Loadin..."
+
+[node name="Done" type="Label" parent="." unique_id=1455057916]
+visible = false
+offset_left = 3.0
+offset_top = 38.0
+offset_right = 206.0
+offset_bottom = 61.0
+text = "Done loadin... Press Enter!"

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cwruok0u0safl"]
+
+[ext_resource type="Texture2D" uid="uid://tvlhfgjbhcd6" path="res://Sprites/tran.png" id="1_q65v4"]
+
+[sub_resource type="Animation" id="Animation_q65v4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/Tran:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transitions/Tran:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1765, 322)]
+}
+
+[sub_resource type="Animation" id="Animation_8qv0v"]
+resource_name = "Trianglewipe"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/Tran:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transitions/Tran:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1765, 322), Vector2(428, 322)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l833j"]
+_data = {
+&"RESET": SubResource("Animation_q65v4"),
+&"Trianglewipe": SubResource("Animation_8qv0v")
+}
+
+[node name="Transitions" type="AnimationPlayer" unique_id=1455238034]
+libraries/ = SubResource("AnimationLibrary_l833j")
+
+[node name="Tran" type="Sprite2D" parent="." unique_id=923930610]
+texture_filter = 1
+position = Vector2(428, 322)
+texture = ExtResource("1_q65v4")
