@@ -1,12 +1,20 @@
 extends Node
 
-var endless: bool = false
+var endless: bool = true
 
 var Level: int = 0
 
 var Levels: Array = [
 	"res://Scenes/Levels/level.tscn",
-	"res://Scenes/Levels/level2.tscn"
+	"res://Scenes/Levels/level2.tscn",
+	"res://Scenes/Levels/level3.tscn"
+]
+
+
+var Highscores: Array[int] = [
+	0,
+	0,
+	0
 ]
 
 

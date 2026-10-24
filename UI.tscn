@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hgvtp6nmohjq" path="res://Sprites/ui0007.png" id="1_b3bc3"]
 [ext_resource type="FontFile" uid="uid://dyceni83q8ciy" path="res://Scenes/Patterns/Mystery Font.ttf" id="3_g6l6n"]
 [ext_resource type="Texture2D" uid="uid://cyxyo47srh6yj" path="res://Sprites/times up.png" id="4_qui0h"]
+[ext_resource type="Shader" uid="uid://b5vamjroc3ctx" path="res://Scenes/BG.gdshader" id="5_vrfts"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grmq1"]
 atlas = ExtResource("1_b3bc3")
@@ -122,7 +123,17 @@ _data = {
 &"RESET": SubResource("Animation_0mc3e")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grmq1"]
+shader = ExtResource("5_vrfts")
+shader_parameter/color_one = Color(0.57, 0.57, 0.57, 1)
+shader_parameter/color_two = Color(1, 1, 1, 1)
+shader_parameter/angle = 20.0
+shader_parameter/line_count = 20.0
+shader_parameter/speed = 0.3
+shader_parameter/blur = 0.0
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=428428846]
+process_mode = 3
 script = ExtResource("1_3b2b5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1807284106]
@@ -196,6 +207,7 @@ theme_override_font_sizes/font_size = 8
 text = "000"
 
 [node name="Timer" type="Timer" parent="." unique_id=1910731607]
+process_mode = 1
 wait_time = 60.0
 autostart = true
 
@@ -218,4 +230,31 @@ position = Vector2(766, 130)
 scale = Vector2(2, 2)
 texture = ExtResource("4_qui0h")
 
+[node name="Pause" type="ColorRect" parent="." unique_id=121573718]
+process_mode = 3
+visible = false
+material = SubResource("ShaderMaterial_grmq1")
+offset_left = -61.0
+offset_top = -22.0
+offset_right = 1242.0
+offset_bottom = 714.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause" unique_id=784510112]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 214.0
+offset_right = 861.0
+offset_bottom = 495.0
+
+[node name="Label" type="Label" parent="Pause/VBoxContainer" unique_id=2116316404]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "PAUSED!!!"
+
+[node name="Button2" type="Button" parent="Pause/VBoxContainer" unique_id=1894764480]
+layout_mode = 2
+text = "Back to menu"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Pause/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

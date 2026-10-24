@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://c4rd7qpu1axk3" path="res://loading.gd" id="1_fim2r"]
 [ext_resource type="Texture2D" uid="uid://cdditi8nipe76" path="res://Sprites/StagePortraits/stage1.png" id="2_k66n3"]
 [ext_resource type="Texture2D" uid="uid://b2lwvy0cw5mq7" path="res://Sprites/announcer.png" id="3_31xe0"]
+[ext_resource type="Texture2D" uid="uid://du8s58dsbtxo1" path="res://Sprites/StagePortraits/stage2.png" id="4_4tbtc"]
+[ext_resource type="Texture2D" uid="uid://dgo8fabjtgxvj" path="res://Sprites/endlessbumper.png" id="4_xrc7h"]
+[ext_resource type="Texture2D" uid="uid://dmpql6h3kj3ic" path="res://Sprites/StagePortraits/stage3.png" id="5_dlcsm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrc7h"]
 atlas = ExtResource("3_31xe0")
@@ -43,14 +46,51 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw0b6"]
+atlas = ExtResource("2_k66n3")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl3gf"]
+atlas = ExtResource("4_xrc7h")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ci8qw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw0b6")
+}],
+"loop": 1,
+"name": &"Stage1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_4tbtc")
+}],
+"loop": 1,
+"name": &"Stage2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dlcsm")
+}],
+"loop": 1,
+"name": &"Stage3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl3gf")
+}],
+"loop": 1,
+"name": &"endless",
+"speed": 5.0
+}]
+
 [node name="Loading" type="Node2D" unique_id=568957543]
 script = ExtResource("1_fim2r")
-
-[node name="Stage1" type="Sprite2D" parent="." unique_id=1169353500]
-z_index = 1
-texture_filter = 1
-position = Vector2(722, 283)
-texture = ExtResource("2_k66n3")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1508452309]
 offset_left = -34.0
@@ -70,9 +110,10 @@ text = "Loadin..."
 [node name="Done" type="Label" parent="." unique_id=1455057916]
 offset_left = 3.0
 offset_top = 38.0
-offset_right = 206.0
-offset_bottom = 61.0
-text = "Press continue..."
+offset_right = 283.0
+offset_bottom = 119.0
+theme_override_font_sizes/font_size = 23
+text = "Press jump to continue..."
 
 [node name="Announcer" type="AnimatedSprite2D" parent="." unique_id=866960177]
 texture_filter = 1
@@ -80,3 +121,9 @@ position = Vector2(177, 306)
 sprite_frames = SubResource("SpriteFrames_grmq1")
 animation = &"Onward"
 autoplay = "Onward"
+
+[node name="Portrait" type="AnimatedSprite2D" parent="." unique_id=197183457]
+texture_filter = 1
+position = Vector2(811, 280)
+sprite_frames = SubResource("SpriteFrames_ci8qw")
+animation = &"Stage3"

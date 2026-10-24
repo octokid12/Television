@@ -3,13 +3,28 @@ extends CanvasLayer
 @onready var timer = $Timer
 @onready var Labeltime = $Time/Time2
 
+var Paused: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if Values.endless:
+		$Target.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	
+	if Input.is_action_just_pressed("Pause"):
+		if not Paused:
+			$Pause.visible = true
+			get_tree().paused = true
+			Paused = true
+			print("pause")
+		else:
+			print("unpause")
+			Paused = false
+			$Pause.visible = false
+			get_tree().paused = false
 	
 	if Values.Score >= int($Target/TargetScore.text):
 		$Score.modulate = "ffe945"
@@ -33,6 +48,10 @@ func _on_timer_timeout() -> void:
 	$AnimationPlayer.play("End")
 	get_tree().set_pause(true)
 	await get_tree().create_timer(3).timeout
+	
+	if Values.Score > Values.Highscores[Values.Level]:
+		Values.Highscores[Values.Level] = Values.Score
+	
 	if Values.Score < Values.TargetScore:
 		Values.Won = -1
 		Values.LoadableScene = get_tree().current_scene.scene_file_path
@@ -51,3 +70,12 @@ func _on_timer_timeout() -> void:
 	Values.Score = 0 
 	Values.Mult = 0
 	print("time's up!")
+
+
+func _on_character_body_2d_add_time() -> void:
+	timer.start(timer.time_left + 5)
+
+
+func _on_button_2_pressed() -> void:
+	Values.LoadableScene = "res://Scenes/main_menu.tscn"
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

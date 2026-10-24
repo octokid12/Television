@@ -2,8 +2,33 @@
 
 [ext_resource type="Script" uid="uid://ckscuwkjsu1q" path="res://Scenes/main_menu.gd" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://hgup1y0qqtjc" path="res://Sprites/logo.png" id="2_48xlc"]
+[ext_resource type="Shader" uid="uid://b5vamjroc3ctx" path="res://Scenes/BG.gdshader" id="3_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://cwexye4g6h02w" path="res://Sprites/StagePortraits/hiscore.png" id="4_ce3w2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grmq1"]
+shader = ExtResource("3_1ehe0")
+shader_parameter/color_one = Color(0.34509805, 0.7490196, 0.32941177, 1)
+shader_parameter/color_two = Color(0.30588236, 0.4509804, 0.4392157, 1)
+shader_parameter/angle = 45.0
+shader_parameter/line_count = 20.0
+shader_parameter/speed = 0.2
+shader_parameter/blur = 0.0
+
+[sub_resource type="GDScript" id="GDScript_grmq1"]
+script/source = "extends VBoxContainer
+
+@onready var Lawn = $Lawn
+@onready var Road = $Road
+@onready var Bus = $Bus
+
+func _process(_delta: float) -> void:
+	Lawn.text = \"Lawn: \" + str(Values.Highscores[0])
+	Road.text = \"Road: \" + str(Values.Highscores[1])
+	Bus.text = \"Bus: \" + str(Values.Highscores[2])
+"
 
 [node name="Main menu" type="Node2D" unique_id=1892438682]
+process_mode = 3
 script = ExtResource("1_28flt")
 
 [node name="Logo" type="Sprite2D" parent="." unique_id=1389765062]
@@ -37,4 +62,44 @@ layout_mode = 2
 text = "Quit
 "
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2007221311]
+z_index = -1
+material = SubResource("ShaderMaterial_grmq1")
+offset_left = -199.0
+offset_top = -79.0
+offset_right = 1356.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="." unique_id=1458836090]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Made in 72 hours by me :)"
+
+[node name="Scores2" type="VBoxContainer" parent="." unique_id=114723902]
+offset_left = 66.0
+offset_top = 457.0
+offset_right = 152.0
+offset_bottom = 534.0
+script = SubResource("GDScript_grmq1")
+
+[node name="Hiscore" type="Sprite2D" parent="Scores2" unique_id=445236640]
+texture_filter = 1
+position = Vector2(73, -82)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ce3w2")
+
+[node name="Lawn" type="Label" parent="Scores2" unique_id=444951281]
+layout_mode = 2
+text = "Lawn: 0"
+
+[node name="Road" type="Label" parent="Scores2" unique_id=1250192685]
+layout_mode = 2
+text = "Road: 0"
+
+[node name="Bus" type="Label" parent="Scores2" unique_id=382056915]
+layout_mode = 2
+text = "Bus Stop: 0"
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Play Normal" to="." method="_on_play_normal_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Play Endless" to="." method="_on_play_endless_pressed"]

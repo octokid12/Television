@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cari1vaccg5v2"]
+
+[sub_resource type="GDScript" id="GDScript_vsnx3"]
+script/source = "extends Node2D
+var moving = false
+var spawncooldown: int = 7
+
+var fire = preload(\"res://Scenes/Patterns/firewave.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	moving = true
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if moving:
+		spawncooldown -= 1
+		position.x += 10
+		if position.x > 2000:
+			queue_free()
+		if spawncooldown <= 0:
+			spawncooldown = 7
+			var spawn = fire.instantiate()
+			spawn.global_position.x = global_position.x
+			spawn.top_level = true
+			add_child(spawn)
+"
+
+[node name="FirewaveTrail" type="Node2D" unique_id=303938760]
+script = SubResource("GDScript_vsnx3")

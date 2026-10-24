@@ -11,6 +11,17 @@ func _ready() -> void:
 	Loading = false
 	Transitions.play_backwards("Trianglewipe")
 	
+	match Values.LoadableScene:
+		"res://Scenes/Endless/Endless.tscn":
+			$Portrait.play("endless")
+		"res://Scenes/Levels/level.tscn":
+			$Portrait.play("Stage1")
+		"res://Scenes/Levels/level2.tscn":
+			$Portrait.play("Stage2")
+		"res://Scenes/Levels/level3.tscn":
+			$Portrait.play("Stage3")
+	
+	
 	if Values.Won == 0:
 		Announcer.play("Onward")
 	elif Values.Won == -1:
