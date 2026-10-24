@@ -209,7 +209,6 @@ text = "000"
 [node name="Timer" type="Timer" parent="." unique_id=1910731607]
 process_mode = 1
 wait_time = 60.0
-autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1534185289]
 process_mode = 3

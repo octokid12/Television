@@ -24,6 +24,7 @@ func _process(_delta: float) -> void:
 			spawncooldown = 7
 			var spawn = fire.instantiate()
 			spawn.global_position.x = global_position.x
+			spawn.global_position.y = global_position.y
 			spawn.top_level = true
 			add_child(spawn)
 "

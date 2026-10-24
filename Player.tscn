@@ -63,6 +63,8 @@ func _physics_process(_delta):
 			if area.visible: 
 				if Mode == \"Base\":
 					Mode = \"Hurt\"
+					if Values.endless:
+						Lose_time.emit()
 					emit_signal(\"HP_Changed\")
 					Values.Score = Values.Score/2
 					Values.Mult = 0
@@ -100,6 +102,7 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 
 
 signal Add_time
+signal Lose_time
 
 func _on_firering_area_entered(_area: Area2D) -> void:
 	if Mode == \"Jump\":

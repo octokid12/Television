@@ -9,6 +9,12 @@ var Paused: bool = false
 func _ready() -> void:
 	if Values.endless:
 		$Target.visible = false
+		timer.start()
+		Values.TargetScore = Values.EndlesHi
+	else:
+		timer.wait_time = Values.Timers[Values.Level]
+		Values.TargetScore = Values.Targets[Values.Level]
+		timer.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,17 +58,29 @@ func _on_timer_timeout() -> void:
 	if Values.Score > Values.Highscores[Values.Level]:
 		Values.Highscores[Values.Level] = Values.Score
 	
-	if Values.Score < Values.TargetScore:
-		Values.Won = -1
-		Values.LoadableScene = get_tree().current_scene.scene_file_path
-		get_tree().paused = false
-		Transitions.play("Trianglewipe")
-		await Transitions.animation_finished
-		get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+	
+	if not Values.endless:
+		if Values.Score < Values.TargetScore:
+			Values.Won = -1
+			Values.LoadableScene = get_tree().current_scene.scene_file_path
+			get_tree().paused = false
+			Transitions.play("Trianglewipe")
+			await Transitions.animation_finished
+			get_tree().change_scene_to_file("res://Scenes/loading.tscn")
+		else:
+			Values.Won = 1
+			Values.Level += 1
+			Values.LoadableScene = Values.Levels[Values.Level]
+			get_tree().paused = false
+			Transitions.play("Trianglewipe")
+			await Transitions.animation_finished
+			get_tree().change_scene_to_file("res://Scenes/loading.tscn")
 	else:
 		Values.Won = 1
 		Values.Level += 1
-		Values.LoadableScene = Values.Levels[Values.Level]
+		if Values.Score > Values.EndlesHi:
+			Values.EndlesHi = Values.Score
+		Values.LoadableScene = "res://Scenes/main_menu.tscn"
 		get_tree().paused = false
 		Transitions.play("Trianglewipe")
 		await Transitions.animation_finished
@@ -79,3 +97,8 @@ func _on_character_body_2d_add_time() -> void:
 func _on_button_2_pressed() -> void:
 	Values.LoadableScene = "res://Scenes/main_menu.tscn"
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+
+
+func _on_character_body_2d_lose_time() -> void:
+	if timer.time_left >= 6:
+		timer.start(timer.time_left - 5)

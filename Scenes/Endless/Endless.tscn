@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://caso526hh1kb4" path="res://Player.tscn" id="2_np85c"]
 [ext_resource type="PackedScene" uid="uid://calha58w8nefh" path="res://UI.tscn" id="3_u7asl"]
 [ext_resource type="Script" uid="uid://d3ub0u2fr8oe" path="res://Scripts/Cam.gd" id="4_7pgsg"]
+[ext_resource type="PackedScene" uid="uid://cari1vaccg5v2" path="res://Scenes/Patterns/firewave_trail.tscn" id="5_o36hl"]
+[ext_resource type="PackedScene" uid="uid://dlx0272tjp3an" path="res://fring.tscn" id="6_6qax7"]
 
 [sub_resource type="GDScript" id="GDScript_kfdsr"]
 resource_name = "Level1"
@@ -16,11 +18,23 @@ script/source = "extends Node2D
 @onready var Pattern3 = preload(\"res://Scenes/Patterns/pattern_3hole.tscn\")
 @onready var Fring = preload(\"res://fring.tscn\")
 @onready var Car = preload(\"res://Scenes/Patterns/car.tscn\")
-var Pattern1Delay: int = 100
-var Pattern2Delay: int = 200
-var Pattern3Delay:int = 100
+@onready var Fire = preload(\"res://Scenes/Patterns/firewave_trail.tscn\")
+
+var Pattern1Delay: int = 250
+var Pattern2Delay: int = 500
+var Pattern3Delay:int = 350
 var Fringdealy: int = 300
 var Cardelay: int = 300
+var FirewaveDelay: int = 150
+
+
+var MaxPattern1Delay: int = 500
+var MaxPattern2Delay: int = 500
+var MaxPattern3Delay:int = 500
+var MaxFringdealy: int = 500
+var MaxCardelay: int = 500
+var MaxFirewaveDelay: int = 350
+
 
 func _ready() -> void:
 	pass
@@ -33,31 +47,53 @@ func _physics_process(_delta: float) -> void:
 	var Followhole = Pattern3.instantiate()
 	var Hoop = Fring.instantiate()
 	var Vehicle = Car.instantiate()
+	var Wave = Fire.instantiate()
+	
+	if Fringdealy <= 0:
+		Fringdealy = MaxFringdealy
+		MaxFringdealy -= 5
+		Hoop.position = Vector2(randi_range(47, 1104), randi_range(100, 343))
+		add_child(Hoop)
+	Fringdealy -= 1
+	
+	
 	if Pattern1Delay <= 0:
-		Pattern1Delay = 60
-		SquarePattern.position = Vector2(randi_range(13, 563), randi_range(9, 626))
-		#add_child(SquarePattern)
+		Pattern1Delay = MaxPattern1Delay
+		MaxPattern1Delay -= 5
+		SquarePattern.position = Vector2(randi_range(13, 1104), randi_range(9, 626))
+		add_child(SquarePattern)
 	Pattern1Delay -= 1
 	
 	
 	if Pattern2Delay <= 0:
-		Pattern2Delay = 40
-		unstaggeredSquare.position = Vector2(randi_range(13, 563), randi_range(9, 626))
-		#add_child(unstaggeredSquare)
+		Pattern2Delay = MaxPattern2Delay
+		MaxPattern2Delay -= 5
+		unstaggeredSquare.position = Vector2(randi_range(13, 1104), randi_range(9, 626))
+		add_child(unstaggeredSquare)
 	Pattern2Delay -= 1
 	
 	if Pattern3Delay <= 0:
-		Pattern3Delay = 300
+		Pattern3Delay = MaxPattern3Delay
+		MaxPattern3Delay -= 5
 		Followhole.position = Vector2(Player.position.x + randi_range(20, -20), Player.position.y + 193)
-		#add_child(Followhole)
+		add_child(Followhole)
 	Pattern3Delay -= 1
 	
 
 	if Cardelay <= 0:
-		Cardelay = 200
-		Vehicle.position = Vector2(randi_range(43, 345), 127)
+		Cardelay = MaxCardelay
+		MaxCardelay -= 5
+		Vehicle.position = Vector2(randi_range(43, 1082), 127)
 		add_child(Vehicle)
 	Cardelay -= 1
+	
+	if FirewaveDelay <= 0:
+		FirewaveDelay = MaxFirewaveDelay
+		MaxFirewaveDelay -= 10
+		Wave.position = Vector2(-26, randi_range(37, 606))
+		add_child(Wave)
+		
+	FirewaveDelay -= 1
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3f8mu"]
@@ -107,5 +143,12 @@ shape = SubResource("RectangleShape2D_qxkdu")
 position = Vector2(-18, 326)
 shape = SubResource("RectangleShape2D_5j5u1")
 
+[node name="FirewaveTrail" parent="." unique_id=303938760 instance=ExtResource("5_o36hl")]
+position = Vector2(-22, 606)
+
+[node name="Fring" parent="." unique_id=1869478463 instance=ExtResource("6_6qax7")]
+position = Vector2(1102, 347)
+
 [connection signal="Add_time" from="CharacterBody2D" to="CanvasLayer" method="_on_character_body_2d_add_time"]
 [connection signal="HP_Changed" from="CharacterBody2D" to="Camera2D" method="_on_player_hp_changed"]
+[connection signal="Lose_time" from="CharacterBody2D" to="CanvasLayer" method="_on_character_body_2d_lose_time"]

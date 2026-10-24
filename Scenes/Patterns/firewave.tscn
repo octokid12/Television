@@ -65,6 +65,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsnx3"]
+size = Vector2(59, 84)
+
 [node name="Firewave" type="Node2D" unique_id=1348835818]
 
 [node name="DangerousObject" type="Node2D" parent="." unique_id=1996754407 node_paths=PackedStringArray("Sprite", "Hitbox")]
@@ -74,14 +77,20 @@ SpawnAnimation = "default"
 Die = true
 DeathFrame = 9
 Hitbox = NodePath("../Area2D")
+StartingFrame = 1
+EndingFrame = 5
 metadata/_custom_type_script = "uid://t4m53k7dn1r2"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DangerousObject" unique_id=974110877]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_grmq1")
-frame = 9
-frame_progress = 1.0
+frame = 5
+frame_progress = 0.08859846
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1561804760]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2136456695]
+position = Vector2(1.5, -4)
+shape = SubResource("RectangleShape2D_vsnx3")

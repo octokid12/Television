@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hgup1y0qqtjc" path="res://Sprites/logo.png" id="2_48xlc"]
 [ext_resource type="Shader" uid="uid://b5vamjroc3ctx" path="res://Scenes/BG.gdshader" id="3_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://cwexye4g6h02w" path="res://Sprites/StagePortraits/hiscore.png" id="4_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://dx1jx4cd0ey7k" path="res://how2play.png" id="5_n45e2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_grmq1"]
 shader = ExtResource("3_1ehe0")
@@ -20,12 +21,25 @@ script/source = "extends VBoxContainer
 @onready var Lawn = $Lawn
 @onready var Road = $Road
 @onready var Bus = $Bus
+@onready var Endless = $Endless
 
 func _process(_delta: float) -> void:
+	Endless.text = \"Endless: \" + str(Values.EndlesHi)
 	Lawn.text = \"Lawn: \" + str(Values.Highscores[0])
 	Road.text = \"Road: \" + str(Values.Highscores[1])
 	Bus.text = \"Bus: \" + str(Values.Highscores[2])
 "
+
+[sub_resource type="Theme" id="Theme_ce3w2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jb4wf"]
+shader = ExtResource("3_1ehe0")
+shader_parameter/color_one = Color(0.8901961, 0.8509804, 0.42745098, 1)
+shader_parameter/color_two = Color(0.2, 0.18431373, 0.19215687, 1)
+shader_parameter/angle = -20.0
+shader_parameter/line_count = 20.0
+shader_parameter/speed = 0.2
+shader_parameter/blur = 0.0
 
 [node name="Main menu" type="Node2D" unique_id=1892438682]
 process_mode = 3
@@ -53,9 +67,9 @@ text = "Play Campaign"
 layout_mode = 2
 text = "Play Endless"
 
-[node name="Settings" type="Button" parent="VBoxContainer" unique_id=1587097505]
+[node name="How2Play" type="Button" parent="VBoxContainer" unique_id=1587097505]
 layout_mode = 2
-text = "Settings"
+text = "How to Play"
 
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=595904974]
 layout_mode = 2
@@ -89,6 +103,11 @@ position = Vector2(73, -82)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_ce3w2")
 
+[node name="Endless" type="Label" parent="Scores2" unique_id=857905626]
+layout_mode = 2
+theme = SubResource("Theme_ce3w2")
+text = "Endless: 0"
+
 [node name="Lawn" type="Label" parent="Scores2" unique_id=444951281]
 layout_mode = 2
 text = "Lawn: 0"
@@ -101,5 +120,28 @@ text = "Road: 0"
 layout_mode = 2
 text = "Bus Stop: 0"
 
+[node name="HowToPlay" type="ColorRect" parent="." unique_id=609624029]
+visible = false
+material = SubResource("ShaderMaterial_jb4wf")
+offset_right = 1170.0
+offset_bottom = 652.0
+mouse_filter = 2
+
+[node name="How2Play" type="Sprite2D" parent="HowToPlay" unique_id=1851823411]
+texture_filter = 1
+position = Vector2(433, 123)
+texture = ExtResource("5_n45e2")
+
+[node name="Close" type="Button" parent="HowToPlay" unique_id=568537543]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 459.0
+offset_right = 734.0
+offset_bottom = 550.0
+text = "Close
+"
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Play Normal" to="." method="_on_play_normal_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Play Endless" to="." method="_on_play_endless_pressed"]
+[connection signal="pressed" from="VBoxContainer/How2Play" to="." method="_on_how_2_play_pressed"]
+[connection signal="pressed" from="HowToPlay/Close" to="." method="_on_close_pressed"]

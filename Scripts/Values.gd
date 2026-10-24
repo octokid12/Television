@@ -17,6 +17,20 @@ var Highscores: Array[int] = [
 	0
 ]
 
+var Timers: Array[int] = [
+	60,
+	40,
+	60
+]
+
+var Targets: Array[int] = [
+	300,
+	500,
+	600,
+	1000
+]
+
+var EndlesHi: int = 0
 
 var Score: int = 0
 var Mult: int = 0
