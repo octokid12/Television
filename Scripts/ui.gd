@@ -19,7 +19,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	
+	$Target/TargetScore.text = str(Values.TargetScore)
 	if Input.is_action_just_pressed("Pause"):
 		if not Paused:
 			$Pause.visible = true
@@ -70,7 +70,11 @@ func _on_timer_timeout() -> void:
 		else:
 			Values.Won = 1
 			Values.Level += 1
-			Values.LoadableScene = Values.Levels[Values.Level]
+			if Values.Level != 5:
+				Values.LoadableScene = Values.Levels[Values.Level]
+			else: 
+				Values.LoadableScene = "res://Scenes/main_menu.tscn"
+				Values.Level = 0
 			get_tree().paused = false
 			Transitions.play("Trianglewipe")
 			await Transitions.animation_finished

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://d3ub0u2fr8oe" path="res://Scripts/Cam.gd" id="4_7pgsg"]
 [ext_resource type="PackedScene" uid="uid://cari1vaccg5v2" path="res://Scenes/Patterns/firewave_trail.tscn" id="5_o36hl"]
 [ext_resource type="PackedScene" uid="uid://dlx0272tjp3an" path="res://fring.tscn" id="6_6qax7"]
+[ext_resource type="PackedScene" uid="uid://b3r0ekiru72qj" path="res://Scenes/Patterns/WaterSpout.tscn" id="7_pyue3"]
 
 [sub_resource type="GDScript" id="GDScript_kfdsr"]
 resource_name = "Level1"
@@ -19,13 +20,15 @@ script/source = "extends Node2D
 @onready var Fring = preload(\"res://fring.tscn\")
 @onready var Car = preload(\"res://Scenes/Patterns/car.tscn\")
 @onready var Fire = preload(\"res://Scenes/Patterns/firewave_trail.tscn\")
+@onready var Spout = preload(\"res://Scenes/Patterns/WaterSpout.tscn\")
 
 var Pattern1Delay: int = 250
 var Pattern2Delay: int = 500
-var Pattern3Delay:int = 350
+var Pattern3Delay:int = 200
 var Fringdealy: int = 300
-var Cardelay: int = 300
+var Cardelay: int = 200
 var FirewaveDelay: int = 150
+var SpoutDelay: int = 2000
 
 
 var MaxPattern1Delay: int = 500
@@ -34,6 +37,7 @@ var MaxPattern3Delay:int = 500
 var MaxFringdealy: int = 500
 var MaxCardelay: int = 500
 var MaxFirewaveDelay: int = 350
+
 
 
 func _ready() -> void:
@@ -48,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 	var Hoop = Fring.instantiate()
 	var Vehicle = Car.instantiate()
 	var Wave = Fire.instantiate()
-	
+	var Water = Spout.instantiate()
 	if Fringdealy <= 0:
 		Fringdealy = MaxFringdealy
 		MaxFringdealy -= 5
@@ -94,6 +98,14 @@ func _physics_process(_delta: float) -> void:
 		add_child(Wave)
 		
 	FirewaveDelay -= 1
+
+
+
+	if SpoutDelay <= 0:
+		SpoutDelay = randi_range(5, 60)
+		Water.position = Vector2(randi_range(21, 1104), randi_range(25, 620))
+		add_child(Water)
+	SpoutDelay -= 1
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3f8mu"]
@@ -148,6 +160,9 @@ position = Vector2(-22, 606)
 
 [node name="Fring" parent="." unique_id=1869478463 instance=ExtResource("6_6qax7")]
 position = Vector2(1102, 347)
+
+[node name="Firewave" parent="." unique_id=1348835818 instance=ExtResource("7_pyue3")]
+position = Vector2(522, 327)
 
 [connection signal="Add_time" from="CharacterBody2D" to="CanvasLayer" method="_on_character_body_2d_add_time"]
 [connection signal="HP_Changed" from="CharacterBody2D" to="Camera2D" method="_on_player_hp_changed"]

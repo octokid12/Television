@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://smulhdtv6j8g"]
 
-[ext_resource type="Texture2D" uid="uid://cjx88o2l6krk3" path="res://Sprites/bus.png" id="1_y5prx"]
+[ext_resource type="Texture2D" uid="uid://da01cn0jfv61n" path="res://Sprites/park.png" id="1_y5prx"]
 [ext_resource type="PackedScene" uid="uid://caso526hh1kb4" path="res://Player.tscn" id="2_icm2c"]
 [ext_resource type="PackedScene" uid="uid://calha58w8nefh" path="res://UI.tscn" id="3_3crnc"]
 [ext_resource type="Script" uid="uid://d3ub0u2fr8oe" path="res://Scripts/Cam.gd" id="4_li750"]
@@ -15,7 +15,7 @@ script/source = "extends Node2D
 @onready var Pattern2 = preload(\"res://Scenes/Patterns/pattern_2.tscn\")
 @onready var Pattern3 = preload(\"res://Scenes/Patterns/pattern_3hole.tscn\")
 @onready var Fring = preload(\"res://fring.tscn\")
-@onready var Car = preload(\"res://Scenes/Patterns/car.tscn\")
+@onready var Car = preload(\"res://Scenes/Patterns/WaterSpout.tscn\")
 var Pattern1Delay: int = 100
 var Pattern2Delay: int = 200
 var Pattern3Delay:int = 100
@@ -33,29 +33,38 @@ func _physics_process(_delta: float) -> void:
 	var Followhole = Pattern3.instantiate()
 	var Hoop = Fring.instantiate()
 	var Vehicle = Car.instantiate()
+	
+	if Fringdealy <= 0:
+		Fringdealy = 100
+		Hoop.position = Vector2(randi_range(13, 1123), randi_range(121, 348))
+		add_child(Hoop)
+	Fringdealy -= 1
+	
+	
+	
 	if Pattern1Delay <= 0:
 		Pattern1Delay = 60
-		SquarePattern.position = Vector2(randi_range(13, 563), randi_range(9, 626))
+		SquarePattern.position = Vector2(randi_range(13, 1123), randi_range(9, 626))
 		add_child(SquarePattern)
 	Pattern1Delay -= 1
 	
 	
 	if Pattern2Delay <= 0:
 		Pattern2Delay = 40
-		unstaggeredSquare.position = Vector2(randi_range(13, 563), randi_range(9, 626))
+		unstaggeredSquare.position = Vector2(randi_range(13, 1123), randi_range(9, 626))
 		add_child(unstaggeredSquare)
 	Pattern2Delay -= 1
 	
 	if Pattern3Delay <= 0:
-		Pattern3Delay = 300
+		Pattern3Delay = 600
 		Followhole.position = Vector2(Player.position.x + randi_range(20, -20), Player.position.y + 193)
 		add_child(Followhole)
 	Pattern3Delay -= 1
 	
 
 	if Cardelay <= 0:
-		Cardelay = 200
-		Vehicle.position = Vector2(randi_range(43, 345), 127)
+		Cardelay = randi_range(5, 60)
+		Vehicle.position = Vector2(randi_range(21, 1104), randi_range(25, 620))
 		add_child(Vehicle)
 	Cardelay -= 1
 "
@@ -64,7 +73,10 @@ func _physics_process(_delta: float) -> void:
 size = Vector2(1220, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxkdu"]
-size = Vector2(636, 619)
+size = Vector2(60, 619)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icm2c"]
+size = Vector2(249, 202.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5j5u1"]
 size = Vector2(36, 619)
@@ -81,7 +93,7 @@ scale = Vector2(1.1, 1.1)
 texture = ExtResource("1_y5prx")
 
 [node name="CharacterBody2D" parent="." unique_id=1029943372 instance=ExtResource("2_icm2c")]
-position = Vector2(396, 188)
+position = Vector2(297, 175)
 
 [node name="CanvasLayer" parent="." unique_id=428428846 instance=ExtResource("3_3crnc")]
 
@@ -100,8 +112,12 @@ position = Vector2(554, 652)
 shape = SubResource("RectangleShape2D_3f8mu")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Bounds" unique_id=144922935]
-position = Vector2(873, 326)
+position = Vector2(1161, 326)
 shape = SubResource("RectangleShape2D_qxkdu")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Bounds" unique_id=728356993]
+position = Vector2(531, 325)
+shape = SubResource("RectangleShape2D_icm2c")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Bounds" unique_id=648425324]
 position = Vector2(-18, 326)

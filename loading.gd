@@ -20,6 +20,14 @@ func _ready() -> void:
 			$Portrait.play("Stage2")
 		"res://Scenes/Levels/level3.tscn":
 			$Portrait.play("Stage3")
+		"res://Scenes/Levels/level4.tscn":
+			$Portrait.play("Stage4")
+		"res://Scenes/main_menu.tscn":
+			$Portrait.play("Win")
+		"res://Scenes/Levels/levelfinal.tscn":
+			$Portrait.play("StageFinal")
+		
+		
 	
 	
 	if Values.Won == 0:

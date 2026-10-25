@@ -7,11 +7,16 @@ var Level: int = 0
 var Levels: Array = [
 	"res://Scenes/Levels/level.tscn",
 	"res://Scenes/Levels/level2.tscn",
-	"res://Scenes/Levels/level3.tscn"
+	"res://Scenes/Levels/level3.tscn",
+	"res://Scenes/Levels/level4.tscn",
+	"res://Scenes/Levels/levelfinal.tscn"
+	
 ]
 
 
 var Highscores: Array[int] = [
+	0,
+	0,
 	0,
 	0,
 	0
@@ -20,14 +25,17 @@ var Highscores: Array[int] = [
 var Timers: Array[int] = [
 	60,
 	40,
-	60
+	60,
+	50,
+	100
 ]
 
 var Targets: Array[int] = [
 	300,
 	500,
-	600,
-	1000
+	1000,
+	900,
+	100
 ]
 
 var EndlesHi: int = 0

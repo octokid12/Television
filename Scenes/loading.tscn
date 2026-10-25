@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://du8s58dsbtxo1" path="res://Sprites/StagePortraits/stage2.png" id="4_4tbtc"]
 [ext_resource type="Texture2D" uid="uid://dgo8fabjtgxvj" path="res://Sprites/endlessbumper.png" id="4_xrc7h"]
 [ext_resource type="Texture2D" uid="uid://dmpql6h3kj3ic" path="res://Sprites/StagePortraits/stage3.png" id="5_dlcsm"]
+[ext_resource type="Texture2D" uid="uid://dpia7o3pbrsuj" path="res://Sprites/stage4.png" id="6_qw0b6"]
+[ext_resource type="Texture2D" uid="uid://b5tagxbmhiugq" path="res://Sprites/StagePortraits/final.png" id="7_1lxvg"]
+[ext_resource type="Texture2D" uid="uid://dg451ui6wdkg2" path="res://Sprites/win.png" id="7_hl3gf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrc7h"]
 atlas = ExtResource("3_31xe0")
@@ -82,6 +85,30 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("6_qw0b6")
+}],
+"loop": 1,
+"name": &"Stage4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_1lxvg")
+}],
+"loop": 1,
+"name": &"StageFinal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_hl3gf")
+}],
+"loop": 1,
+"name": &"Win",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hl3gf")
 }],
 "loop": 1,
@@ -126,4 +153,4 @@ autoplay = "Onward"
 texture_filter = 1
 position = Vector2(811, 280)
 sprite_frames = SubResource("SpriteFrames_ci8qw")
-animation = &"Stage3"
+animation = &"StageFinal"

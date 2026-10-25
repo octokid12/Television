@@ -40,7 +40,7 @@ func get_input():
 		
 func _physics_process(_delta):
 	
-	Values.PlayerY = position.y
+	Values.PlayerY = global_position.y
 	
 	if Mode == \"Base\":
 		Multtimer -= 1
