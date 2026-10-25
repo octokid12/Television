@@ -1,5 +1,8 @@
 class_name DangerousObject extends Node2D
 
+
+@export var Sound: AudioStreamPlayer
+@export var Soundframe: int = 0
 @export var Sprite: AnimatedSprite2D
 @export var SpawnAnimation: String
 @export var SpawnOffset: float = 0
@@ -19,6 +22,10 @@ func _ready() -> void:
 	Sprite.play(SpawnAnimation)
 	
 func _process(_delta: float) -> void:
+	if Sound:
+		if Sprite.frame == Soundframe:
+			Sound.play()
+			Sound = null
 	if not Sprite: return
 	if Sprite.frame >= StartingFrame and Sprite.frame <= EndingFrame:
 		#Hitbox.monitorable = true

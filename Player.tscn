@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dqwtjmpm3ee0d" path="res://Sprites/Terry.png" id="1_xhfnw"]
 [ext_resource type="Texture2D" uid="uid://lp1vykpit2u6" path="res://Sprites/dust.png" id="2_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://ccwbwqg8dt8qs" path="res://Sprites/hypeandaura.png" id="3_kne1u"]
+[ext_resource type="AudioStream" uid="uid://ra2qcbr2w5c1" path="res://Sound/jump (1).wav" id="4_e80uo"]
+[ext_resource type="AudioStream" uid="uid://bsgsni6a25orj" path="res://Sound/hitHurt (3).wav" id="5_cxr5p"]
+[ext_resource type="AudioStream" uid="uid://bwqjjwi7kub28" path="res://Sound/powerUp (1).wav" id="6_tdg3f"]
+[ext_resource type="AudioStream" uid="uid://dompa60fiaf52" path="res://Sound/click (1).wav" id="7_dtqjt"]
 
 [sub_resource type="GDScript" id="GDScript_grmq1"]
 script/source = "extends CharacterBody2D
@@ -25,6 +29,7 @@ func get_input():
 	
 	if Input.is_action_just_pressed(\"ui_accept\") and Mode == \"Base\":
 		#print(\"jump\")
+		$Jump.play()
 		Mode = \"Jump\"
 		
 		
@@ -63,6 +68,7 @@ func _physics_process(_delta):
 			if area.visible: 
 				if Mode == \"Base\":
 					Mode = \"Hurt\"
+					$Hurt.play()
 					if Values.endless:
 						Lose_time.emit()
 					emit_signal(\"HP_Changed\")
@@ -109,6 +115,7 @@ func _on_firering_area_entered(_area: Area2D) -> void:
 		if Values.endless:
 			Add_time.emit()
 		$Fire.restart()
+		$Hoop.play()
 		Values.Mult *= 2
 "
 
@@ -303,6 +310,18 @@ process_material = SubResource("ParticleProcessMaterial_grmq1")
 [node name="BH" type="CollisionShape2D" parent="." unique_id=469009959]
 position = Vector2(-4, 204.5)
 shape = SubResource("RectangleShape2D_grmq1")
+
+[node name="Jump" type="AudioStreamPlayer" parent="." unique_id=639782913]
+stream = ExtResource("4_e80uo")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="." unique_id=933964126]
+stream = ExtResource("5_cxr5p")
+
+[node name="Hoop" type="AudioStreamPlayer" parent="." unique_id=1388319698]
+stream = ExtResource("6_tdg3f")
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="." unique_id=1346830583]
+stream = ExtResource("7_dtqjt")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="Firering" to="." method="_on_firering_area_entered"]

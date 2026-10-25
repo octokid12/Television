@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dyceni83q8ciy" path="res://Scenes/Patterns/Mystery Font.ttf" id="3_g6l6n"]
 [ext_resource type="Texture2D" uid="uid://cyxyo47srh6yj" path="res://Sprites/times up.png" id="4_qui0h"]
 [ext_resource type="Shader" uid="uid://b5vamjroc3ctx" path="res://Scenes/BG.gdshader" id="5_vrfts"]
+[ext_resource type="AudioStream" uid="uid://6qqporkw04ut" path="res://Sound/u_xg7ssi08yr-crowd-cheering-379666.wav" id="6_0mc3e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grmq1"]
 atlas = ExtResource("1_b3bc3")
@@ -249,11 +250,16 @@ offset_bottom = 495.0
 [node name="Label" type="Label" parent="Pause/VBoxContainer" unique_id=2116316404]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 2
-text = "PAUSED!!!"
+text = "Pause"
+horizontal_alignment = 1
 
 [node name="Button2" type="Button" parent="Pause/VBoxContainer" unique_id=1894764480]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-text = "Back to menu"
+text = "Back to main menu"
+
+[node name="Crowd" type="AudioStreamPlayer" parent="." unique_id=847491292]
+stream = ExtResource("6_0mc3e")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Pause/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://t4m53k7dn1r2" path="res://Scripts/Class/Danger.gd" id="1_0h1bi"]
 [ext_resource type="Texture2D" uid="uid://ch8gksp64n8sn" path="res://Sprites/shot.png" id="2_fx24a"]
+[ext_resource type="AudioStream" uid="uid://4qqt6wu1h3tj" path="res://Sound/explosion (2).wav" id="3_fx24a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4rcqs"]
 atlas = ExtResource("2_fx24a")
@@ -79,8 +80,10 @@ size = Vector2(85, 91)
 
 [node name="Shotpattern" type="Node2D" unique_id=235004472]
 
-[node name="DangerousObject" type="Node2D" parent="." unique_id=1344343845 node_paths=PackedStringArray("Sprite", "Hitbox")]
+[node name="DangerousObject" type="Node2D" parent="." unique_id=1344343845 node_paths=PackedStringArray("Sound", "Sprite", "Hitbox")]
 script = ExtResource("1_0h1bi")
+Sound = NodePath("AudioStreamPlayer")
+Soundframe = 4
 Sprite = NodePath("AnimatedSprite2D")
 SpawnAnimation = "default"
 Die = true
@@ -103,9 +106,15 @@ collision_mask = 0
 position = Vector2(-4.5, 1.5)
 shape = SubResource("RectangleShape2D_grmq1")
 
-[node name="DangerousObject2" type="Node2D" parent="." unique_id=1291758192 node_paths=PackedStringArray("Sprite", "Hitbox")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DangerousObject" unique_id=718897819]
+stream = ExtResource("3_fx24a")
+volume_db = -10.0
+
+[node name="DangerousObject2" type="Node2D" parent="." unique_id=1291758192 node_paths=PackedStringArray("Sound", "Sprite", "Hitbox")]
 position = Vector2(0, 105)
 script = ExtResource("1_0h1bi")
+Sound = NodePath("AudioStreamPlayer")
+Soundframe = 4
 Sprite = NodePath("AnimatedSprite2D")
 SpawnAnimation = "default"
 SpawnOffset = 0.7
@@ -129,9 +138,15 @@ collision_mask = 0
 position = Vector2(-4.5, 1.5)
 shape = SubResource("RectangleShape2D_grmq1")
 
-[node name="DangerousObject3" type="Node2D" parent="." unique_id=820744303 node_paths=PackedStringArray("Sprite", "Hitbox")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DangerousObject2" unique_id=1285282641]
+stream = ExtResource("3_fx24a")
+volume_db = -10.0
+
+[node name="DangerousObject3" type="Node2D" parent="." unique_id=820744303 node_paths=PackedStringArray("Sound", "Sprite", "Hitbox")]
 position = Vector2(-1, 205)
 script = ExtResource("1_0h1bi")
+Sound = NodePath("AudioStreamPlayer")
+Soundframe = 4
 Sprite = NodePath("AnimatedSprite2D")
 SpawnAnimation = "default"
 SpawnOffset = 1.4
@@ -155,9 +170,15 @@ collision_mask = 0
 position = Vector2(-4.5, 1.5)
 shape = SubResource("RectangleShape2D_grmq1")
 
-[node name="DangerousObject4" type="Node2D" parent="." unique_id=389454159 node_paths=PackedStringArray("Sprite", "Hitbox")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DangerousObject3" unique_id=1391873935]
+stream = ExtResource("3_fx24a")
+volume_db = -10.0
+
+[node name="DangerousObject4" type="Node2D" parent="." unique_id=389454159 node_paths=PackedStringArray("Sound", "Sprite", "Hitbox")]
 position = Vector2(-1, 310)
 script = ExtResource("1_0h1bi")
+Sound = NodePath("AudioStreamPlayer")
+Soundframe = 4
 Sprite = NodePath("AnimatedSprite2D")
 SpawnAnimation = "default"
 SpawnOffset = 2.1
@@ -180,3 +201,7 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DangerousObject4/Area2D" unique_id=279518514]
 position = Vector2(-4.5, 1.5)
 shape = SubResource("RectangleShape2D_grmq1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DangerousObject4" unique_id=193012329]
+stream = ExtResource("3_fx24a")
+volume_db = -10.0

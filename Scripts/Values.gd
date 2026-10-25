@@ -27,7 +27,7 @@ var Timers: Array[int] = [
 	40,
 	60,
 	50,
-	100
+	55
 ]
 
 var Targets: Array[int] = [
@@ -55,5 +55,5 @@ var Won: int = 0
 
 
 func _process(_delta: float) -> void:
-	if Mult < 0:
-		Mult = 0
+	if Mult < 1:
+		Mult = 1

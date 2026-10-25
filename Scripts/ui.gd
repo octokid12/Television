@@ -53,7 +53,8 @@ func Time_Left():
 func _on_timer_timeout() -> void:
 	$AnimationPlayer.play("End")
 	get_tree().set_pause(true)
-	await get_tree().create_timer(3).timeout
+	$Crowd.play()
+	await get_tree().create_timer(5.6).timeout
 	
 	if Values.Score > Values.Highscores[Values.Level]:
 		Values.Highscores[Values.Level] = Values.Score

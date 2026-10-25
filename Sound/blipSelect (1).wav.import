@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://qs73yd1a7myq"
+path="res://.godot/imported/blipSelect (1).wav-a57f0eb7322a53f8a7a6e8a5224a6031.sample"
+
+[deps]
+
+source_file="res://Sound/blipSelect (1).wav"
+dest_files=["res://.godot/imported/blipSelect (1).wav-a57f0eb7322a53f8a7a6e8a5224a6031.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

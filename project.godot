@@ -10,16 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Please Watch Out!"
+config/name="The #1 Most Watched Show on Television"
 run/main_scene="uid://cc0d571ixfdp8"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0.06495004, 0.089611046, 0.37396276, 1)
-config/icon="res://Sprites/icon.svg"
+config/icon="uid://prjdc4wh3li7"
 
 [autoload]
 
 Values="*uid://br2axrn2d7r5e"
 Transitions="*uid://cwruok0u0safl"
+Music="*uid://bqn7ryyq7j3kp"
 
 [display]
 
